@@ -1,0 +1,47 @@
+{
+  "logs": [
+    {
+      "message": "cunt",
+      "attention": false,
+      "tech": "Jon Doe",
+      "date": "2021-03-14T08:27:11.464Z",
+      "id": 1
+    },
+    {
+      "id": 2,
+      "message": "Shit fuck cunt nigga",
+      "attention": false,
+      "tech": "Sara Wilson",
+      "date": "2021-03-14T18:46:29.483Z"
+    },
+    {
+      "message": "Fuck",
+      "attention": true,
+      "tech": "Sarah Wilson",
+      "date": "2021-03-14T08:27:33.608Z",
+      "id": 3
+    }
+  ],
+  "techs": [
+    {
+      "id": 1,
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    {
+      "id": 2,
+      "firstName": "Sam",
+      "lastName": "Smith"
+    },
+    {
+      "id": 3,
+      "firstName": "Sara",
+      "lastName": "Wilson"
+    },
+    {
+      "firstName": "Vedang",
+      "lastName": "Danej",
+      "id": 4
+    }
+  ]
+}
