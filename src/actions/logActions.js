@@ -13,7 +13,7 @@ import axios from "axios";
 export const getLogs = () => async (dispatch) => {
   try {
     setLoading();
-    const res = await fetch(`/logs`);
+    const res = await fetch(`https://it-logger-api.herokuapp.com/logs`);
     const data = await res.json();
     dispatch({
       type: GET_LOGS,
@@ -29,7 +29,9 @@ export const getLogs = () => async (dispatch) => {
 export const searchLogs = (text) => async (dispatch) => {
   try {
     setLoading();
-    const res = await fetch(`/logs?q=${text}`);
+    const res = await fetch(
+      `https://it-logger-api.herokuapp.com/logs?q=${text}`
+    );
     const data = await res.json();
     dispatch({
       type: SEARCH_LOGS,
@@ -45,7 +47,7 @@ export const searchLogs = (text) => async (dispatch) => {
 export const deleteLog = (id) => async (dispatch) => {
   try {
     setLoading();
-    await fetch(`/logs/${id}`, {
+    await fetch(`https://it-logger-api.herokuapp.com/logs/${id}`, {
       method: "DELETE",
     });
 
@@ -63,7 +65,10 @@ export const deleteLog = (id) => async (dispatch) => {
 export const updateLog = (log) => async (dispatch) => {
   try {
     setLoading();
-    const res = await axios.put(`/logs/${log.id}`, log);
+    const res = await axios.put(
+      `https://it-logger-api.herokuapp.com/logs/${log.id}`,
+      log
+    );
     dispatch({
       type: UPDATE_LOG,
       payload: res.data,
@@ -79,7 +84,7 @@ export const addLog = (log) => async (dispatch) => {
   try {
     setLoading();
 
-    const res = await fetch("/logs", {
+    const res = await fetch("https://it-logger-api.herokuapp.com/logs", {
       method: "POST",
       body: JSON.stringify(log),
       headers: {

@@ -48,6 +48,6 @@
   "devDependencies": {
     "concurrently": "^6.0.0",
     "json-server": "^0.16.3"
-  },
-  "proxy": "https://it-logger-api.herokuapp.com"
+  }
+  
 }
