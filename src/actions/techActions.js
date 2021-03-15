@@ -15,7 +15,9 @@ export const setLoading = () => {
 export const getTechs = () => async (dispatch) => {
   try {
     setLoading();
-    const res = await fetch(`https://it-logger-api.herokuapp.com/techs`);
+    const res = await fetch(
+      `https://it-logger-json-server.herokuapp.com/techs`
+    );
     const data = await res.json();
     dispatch({
       type: GET_TECHS,
@@ -31,7 +33,7 @@ export const getTechs = () => async (dispatch) => {
 export const deleteTech = (id) => async (dispatch) => {
   try {
     setLoading();
-    await fetch(`https://it-logger-api.herokuapp.com/techs/${id}`, {
+    await fetch(`https://it-logger-json-server.herokuapp.com/techs/${id}`, {
       method: "DELETE",
     });
 
@@ -50,7 +52,7 @@ export const addTech = (tech) => async (dispatch) => {
   try {
     setLoading();
     const res = await axios.post(
-      "https://it-logger-api.herokuapp.com/techs",
+      "https://it-logger-json-server.herokuapp.com/techs",
       tech
     );
     const data = await res.data;
