@@ -13,7 +13,7 @@ import axios from "axios";
 export const getLogs = () => async (dispatch) => {
   try {
     setLoading();
-    const res = await fetch(`https://it-logger-api.herokuapp.com/logs`);
+    const res = await fetch(`https://it-logger-json-server.herokuapp.com/logs`);
     const data = await res.json();
     dispatch({
       type: GET_LOGS,
@@ -30,7 +30,7 @@ export const searchLogs = (text) => async (dispatch) => {
   try {
     setLoading();
     const res = await fetch(
-      `https://it-logger-api.herokuapp.com/logs?q=${text}`
+      `https://it-logger-json-server.herokuapp.com/logs?q=${text}`
     );
     const data = await res.json();
     dispatch({
@@ -47,7 +47,7 @@ export const searchLogs = (text) => async (dispatch) => {
 export const deleteLog = (id) => async (dispatch) => {
   try {
     setLoading();
-    await fetch(`https://it-logger-api.herokuapp.com/logs/${id}`, {
+    await fetch(`https://it-logger-json-server.herokuapp.com/logs/${id}`, {
       method: "DELETE",
     });
 
@@ -66,7 +66,7 @@ export const updateLog = (log) => async (dispatch) => {
   try {
     setLoading();
     const res = await axios.put(
-      `https://it-logger-api.herokuapp.com/logs/${log.id}`,
+      `https://it-logger-json-server.herokuapp.com/logs/${log.id}`,
       log
     );
     dispatch({
@@ -84,13 +84,16 @@ export const addLog = (log) => async (dispatch) => {
   try {
     setLoading();
 
-    const res = await fetch("https://it-logger-api.herokuapp.com/logs", {
-      method: "POST",
-      body: JSON.stringify(log),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      "https://it-logger-json-server.herokuapp.com/logs",
+      {
+        method: "POST",
+        body: JSON.stringify(log),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const data = await res.json();
     dispatch({
       type: ADD_LOG,
