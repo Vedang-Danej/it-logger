@@ -34,14 +34,28 @@ export const searchLogs = (text) => async (dispatch) => {
   try {
     setLoading();
     const res = await fetch(
-      `https://it-logger-41041-default-rtdb.firebaseio.com/logs.json?orderBy="$value"&equalTo=${text}`
+      `https://it-logger-41041-default-rtdb.firebaseio.com/logs.json`
     );
     const obj = await res.json();
-    console.log(obj);
-    const data = objectToArray(obj);
+    const objects = objectToArray(obj);
+    const results = [];
+    for (let i = 0; i < objects.length; i++) {
+      for (let key in objects[i]) {
+        if (
+          objects[i][key] !== false &&
+          objects[i][key] !== true &&
+          objects[i][key].indexOf(text) !== -1
+        ) {
+          results.push(objects[i]);
+          break;
+        }
+      }
+    }
+
+    console.log(typeof text);
     dispatch({
       type: SEARCH_LOGS,
-      payload: data,
+      payload: text === "" ? objects : results,
     });
   } catch (error) {
     dispatch({
