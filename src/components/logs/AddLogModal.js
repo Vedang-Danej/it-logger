@@ -3,6 +3,7 @@ import M from "materialize-css/dist/js/materialize.min.js";
 import { connect } from "react-redux";
 import { addLog } from "../../actions/logActions";
 import TechSelectOptions from "../techs/TechSelectOptions";
+import { v4 as uuidv4 } from "uuid";
 const AddLogModal = ({ addLog }) => {
   const [message, setMessage] = useState("");
   const [attention, setAttention] = useState(false);
@@ -12,6 +13,7 @@ const AddLogModal = ({ addLog }) => {
       M.toast({ html: "Please enter a message and a tech" });
     else {
       const newLog = {
+        id: uuidv4(),
         message,
         attention,
         tech,

@@ -11,9 +11,16 @@ import EditLogModal from "./components/logs/EditLogModal";
 import TechListModal from "./components/techs/TechListModal";
 import { Provider } from "react-redux";
 import store from "./store";
+import objectToArray from "./utils/objectToArray";
 const App = () => {
-  useEffect(() => {
+  useEffect(async () => {
     M.AutoInit();
+    const res = await fetch(
+      `https://it-logger-41041-default-rtdb.firebaseio.com/logs.json`
+    );
+    const data = await res.json();
+
+    console.log(objectToArray(data));
   });
   return (
     <Provider store={store}>

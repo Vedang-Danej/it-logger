@@ -20,13 +20,14 @@ const EditLogModal = ({ updateLog, current }) => {
       M.toast({ html: "Please enter a message and a tech" });
     else {
       const updatedLog = {
+        key: current.key,
         id: current.id,
         message,
         attention,
         tech,
         date: new Date(),
       };
-      console.log(updatedLog);
+
       updateLog(updatedLog);
       M.toast({ html: `Log updated by ${tech}` });
       setMessage("");

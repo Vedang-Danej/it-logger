@@ -10,11 +10,15 @@ import {
   SEARCH_LOGS,
 } from "./types";
 import axios from "axios";
+import objectToArray from "../utils/objectToArray";
 export const getLogs = () => async (dispatch) => {
   try {
     setLoading();
-    const res = await fetch(`https://it-logger-json-server.herokuapp.com/logs`);
-    const data = await res.json();
+    const res = await fetch(
+      `https://it-logger-41041-default-rtdb.firebaseio.com/logs.json`
+    );
+    const obj = await res.json();
+    const data = objectToArray(obj);
     dispatch({
       type: GET_LOGS,
       payload: data,
@@ -30,9 +34,11 @@ export const searchLogs = (text) => async (dispatch) => {
   try {
     setLoading();
     const res = await fetch(
-      `https://it-logger-json-server.herokuapp.com/logs?q=${text}`
+      `https://it-logger-41041-default-rtdb.firebaseio.com/logs.json?orderBy="$value"&equalTo=${text}`
     );
-    const data = await res.json();
+    const obj = await res.json();
+    console.log(obj);
+    const data = objectToArray(obj);
     dispatch({
       type: SEARCH_LOGS,
       payload: data,
@@ -40,16 +46,21 @@ export const searchLogs = (text) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: LOGS_ERROR,
-      payload: error.response.data,
+      payload: error.response,
     });
   }
 };
-export const deleteLog = (id) => async (dispatch) => {
+export const deleteLog = (key, id) => async (dispatch) => {
   try {
     setLoading();
-    await fetch(`https://it-logger-json-server.herokuapp.com/logs/${id}`, {
-      method: "DELETE",
-    });
+    await fetch(
+      `https://it-logger-41041-default-rtdb.firebaseio.com/logs/${
+        key + ".json"
+      }`,
+      {
+        method: "DELETE",
+      }
+    );
 
     dispatch({
       type: DELETE_LOG,
@@ -58,15 +69,18 @@ export const deleteLog = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: LOGS_ERROR,
-      payload: error.response.data,
+      payload: error.response,
     });
   }
 };
 export const updateLog = (log) => async (dispatch) => {
   try {
+    console.log(log);
     setLoading();
     const res = await axios.put(
-      `https://it-logger-json-server.herokuapp.com/logs/${log.id}`,
+      `https://it-logger-41041-default-rtdb.firebaseio.com/logs/${
+        log.key + ".json"
+      }`,
       log
     );
     dispatch({
@@ -83,18 +97,12 @@ export const updateLog = (log) => async (dispatch) => {
 export const addLog = (log) => async (dispatch) => {
   try {
     setLoading();
-
-    const res = await fetch(
-      "https://it-logger-json-server.herokuapp.com/logs",
-      {
-        method: "POST",
-        body: JSON.stringify(log),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
+    await axios.post(
+      "https://it-logger-41041-default-rtdb.firebaseio.com/logs.json",
+      log
     );
-    const data = await res.json();
+    const data = log;
+
     dispatch({
       type: ADD_LOG,
       payload: data,
