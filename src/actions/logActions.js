@@ -75,7 +75,6 @@ export const deleteLog = (key, id) => async (dispatch) => {
 };
 export const updateLog = (log) => async (dispatch) => {
   try {
-    console.log(log);
     setLoading();
     const res = await axios.put(
       `https://it-logger-41041-default-rtdb.firebaseio.com/logs/${
@@ -97,12 +96,19 @@ export const updateLog = (log) => async (dispatch) => {
 export const addLog = (log) => async (dispatch) => {
   try {
     setLoading();
-    await axios.post(
+    const res = await axios.post(
       "https://it-logger-41041-default-rtdb.firebaseio.com/logs.json",
       log
     );
-    const data = log;
 
+    log.key = res.data.name;
+    await axios.put(
+      `https://it-logger-41041-default-rtdb.firebaseio.com/logs/${
+        log.key + ".json"
+      }`,
+      log
+    );
+    const data = log;
     dispatch({
       type: ADD_LOG,
       payload: data,
