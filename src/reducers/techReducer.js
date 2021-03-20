@@ -16,7 +16,7 @@ export default (state = initialState, action) => {
     case DELETE_TECH:
       return {
         ...state,
-        techs: state.techs.filter((tech) => tech.id !== action.payload),
+        techs: state.techs.filter((tech) => tech.key !== action.payload),
         loading: false,
       };
     case ADD_TECH:

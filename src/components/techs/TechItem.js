@@ -10,7 +10,7 @@ const TechItem = ({ tech, deleteTech }) => {
         <a
           href="#!"
           className="secondary-content"
-          onClick={() => deleteTech(tech.id)}
+          onClick={() => deleteTech(tech.key)}
         >
           <i className="material-icons grey-text">delete</i>
         </a>

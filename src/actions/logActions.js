@@ -52,7 +52,6 @@ export const searchLogs = (text) => async (dispatch) => {
       }
     }
 
-    console.log(typeof text);
     dispatch({
       type: SEARCH_LOGS,
       payload: text === "" ? objects : results,
